@@ -4,21 +4,21 @@ require('pry-byebug')
 
 class Spending
 
-attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date, :user_id
+attr_reader :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_date, :user_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
     @user_id = options['user_id']
-    @tag = options['tag']
-    @merchant = options['merchant']
+    @tag_id = options['tag_id']
+    @merchant_id = options['merchant_id']
     @price = options['price']
     @product = options['product']
     @purchase_date = options['purchase_date']
   end
 
   def save()
-    sql = 'INSERT INTO spendings (user_id, tag, merchant, price, product, purchase_date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id'
-    values = [@user_id, @tag, @merchant, @price, @product, @purchase_date]
+    sql = 'INSERT INTO spendings (user_id, tag_id, merchant_id, price, product, purchase_date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id'
+    values = [@user_id, @tag_id, @merchant_id, @price, @product, @purchase_date]
     results = SqlRunner.run(sql, values).first
     @id = results['id'].to_i
   end
@@ -36,21 +36,6 @@ attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date, :user
   end
 
 
-  def self.list_tags
-    sql = 'SELECT tag FROM spendings'
-    result = SqlRunner.run(sql)
-    array = result.map { |spending| Spending.new(spending).tag }
-    #'uniq' means there are no repeats
-    return array.uniq
-  end
-
-  def self.list_merchants
-    sql = 'SELECT merchant FROM spendings'
-    result = SqlRunner.run(sql)
-    array = result.map { |spending| Spending.new(spending).merchant}
-    return array.uniq
-  end
-
   def self.find( id )
     sql = "SELECT * FROM spendings
     WHERE id = $1"
@@ -63,11 +48,11 @@ attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date, :user
   def update()
     sql = 'UPDATE spendings SET
     (
-      user_id, tag, merchant, price, product, purchase_date)
+      user_id, tag_id, merchant_id, price, product, purchase_date)
       =
       ($1, $2, $3, $4, $5, $6)
       WHERE id = $5'
-      values = [@user_id, @tag, @merchant, @price, @product, @purchase_date, @id]
+      values = [@user_id, @tag_id, @merchant_id, @price, @product, @purchase_date, @id]
       SqlRunner.run(sql, values)
   end
 

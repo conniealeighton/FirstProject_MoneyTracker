@@ -5,6 +5,8 @@ require('pry-byebug')
 
 require_relative('./models/spendings')
 require_relative('./models/users')
+require_relative('./models/merchants')
+require_relative('./models/tags')
 also_reload ( './models/*')
 
 #INDEX ROUTE
@@ -32,6 +34,8 @@ end
 #CREATE NEW
 get '/counting_pennies/new/:id' do
   @user = User.find (params[:id])
+  @merchant = Merchant.all()
+  @tag = Tag.all()
   erb(:new)
 end
 
