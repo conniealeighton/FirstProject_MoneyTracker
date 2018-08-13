@@ -26,3 +26,10 @@ get '/counting_pennies/:id' do
   @spending = Spending.find( params[:id] )
   erb( :show )
 end
+
+#RETRIEVE NEW
+post '/counting_pennies' do
+  @spending = Spending.new( params )
+  @spending.save()
+  erb( :create )
+end

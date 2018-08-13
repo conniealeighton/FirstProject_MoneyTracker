@@ -27,26 +27,25 @@ class User
   end
 
   def self.check_id
-   sql = 'SELECT id FROM users'
-   hash = SqlRunner.run(sql).first
-   hash['id']
- end
+    sql = 'SELECT id FROM users'
+    hash = SqlRunner.run(sql).first
+    hash['id']
+  end
 
- def self.find( id )
-   sql = "SELECT * FROM users
-   WHERE id = $1"
-   values = [id]
-   user = SqlRunner.run( sql, values ).first
-   result = User.new( user )
-   return result
- end
+  def self.find( id )
+    sql = "SELECT * FROM users
+    WHERE id = $1"
+    values = [id]
+    user = SqlRunner.run( sql, values ).first
+    result = User.new( user )
+    return result
+  end
 
- def self.all()
-  sql = "SELECT * FROM users"
-  users = SqlRunner.run( sql )
-  result = users.map { |user| PizzaOrder.new( user ) }
-  return result
-end
-
+  def self.all()
+    sql = "SELECT * FROM users"
+    users = SqlRunner.run( sql )
+    result = users.map { |user| PizzaOrder.new( user ) }
+    return result
+  end
 
 end
