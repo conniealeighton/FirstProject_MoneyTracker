@@ -1,0 +1,39 @@
+<form action="/counting_pennies" method="post">
+
+
+<!-- TAG -->
+  <label for="tag">Tag</label>
+  <input type="text" name="tag" id='tag-field'/>
+
+<br>
+<p></p>
+<!-- Merchant -->
+<label for="merchant">Merchant</label>
+<input type="text" name="merchant" id='merchant-field'>
+<br>
+<p></p>
+
+<!-- Price -->
+<label for="price">Price £</label>
+<input type="text" name="price" id='price-fied'>
+<br>
+<p></p>
+
+<!-- Product -->
+<label for="product">Product</label>
+<input type="text" name="product" id="product-field">
+<br>
+<p></p>
+
+<!-- Purchase Date -->
+<label for="purchase_date">Purchase Date</label>
+<input type="date" name="purchase_date" id='purchase-date-field'>
+<br>
+<p></p>
+
+<input type="text" id="user-id" name="users_id" value='<% @user %>'>
+
+
+<input type="submit" name="Submit" value="Submit">
+
+</form>
