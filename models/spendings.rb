@@ -4,7 +4,7 @@ require('pry-byebug')
 
 class Spending
 
-attr_reader :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_date, :user_id
+attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_date, :user_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -45,22 +45,45 @@ attr_reader :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_date,
     return result
   end
 
-  def update()
-    sql = 'UPDATE spendings SET
-    (
-      user_id, tag_id, merchant_id, price, product, purchase_date)
-      =
-      ($1, $2, $3, $4, $5, $6)
-      WHERE id = $5'
-      values = [@user_id, @tag_id, @merchant_id, @price, @product, @purchase_date, @id]
-      SqlRunner.run(sql, values)
-  end
 
   def delete()
     sql = "DELETE FROM spendings
     WHERE id = $1"
     values = [@id]
     SqlRunner.run( sql, values )
+  end
+
+  def get_merchant()
+    sql = 'SELECT * FROM merchants WHERE id = $1'
+    values = [@merchant_id]
+    result = SqlRunner.run(sql, values).first
+    Merchant.new(result)
+  end
+
+  def get_tag()
+    sql = 'SELECT * FROM tags WHERE id = $1'
+    values = [@tag_id]
+    result = SqlRunner.run(sql, values).first
+    Tag.new(result)
+  end
+
+  def update()
+    sql = 'UPDATE spendings
+    SET
+    (
+      user_id,
+      tag_id,
+      merchant_id,
+      price,
+      product,
+      purchase_date
+    )
+    =
+    (
+      $1, $2, $3, $4, $5, $6
+      ) WHERE id = $7'
+      values = [@user_id, @tag_id, @merchant_id, @price, @product, @purchase_date, @id]
+      SqlRunner.run(sql, values)
   end
 
 

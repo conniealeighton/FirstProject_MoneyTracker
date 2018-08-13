@@ -1,19 +1,22 @@
-<form action="/counting_pennies" method="post">
+<form action="/counting_pennies/<%= @spending.id %>" method="post">
 
-  <label for="tag-field"> Tag </label>
-  <input type="text"
-  name="tag"
-  id="tag-field"
-  value=" <%= @spending.tag %>" >
+  <label for="tag-field"> Tag Field </label>
+  <select id='tag-field' name="tag_id">
+    <% @tag.each do |tag| %>
+    <option value="<%= tag.id %>"> <%= tag.name %> </option>
+    <% end %>
+  </select>
 
 <br>
 <p></p>
 
-  <label for="merchant-field"> Merchant </label>
-  <input type="text"
-  name="merchant"
-  id='merchant-field'
-  value="<%= @spending.merchant %>">
+<label for="merchant-field"> Merchant Field</label>
+<select id='merchant-field' name="merchant_id">
+  <% @merchant.each do |merchant| %>
+  <option value=" <%= merchant.id %> "> <%= merchant.name %> </option>
+  <% end %>
+</select>
+
 
   <br>
   <p></p>
@@ -41,6 +44,8 @@
   name="purchase_date"
   id='date-field'
   value="<%= @spending.purchase_date %>">
+
+  <input type="text" name="id" value="1">
 
   <input type='submit' value="Edit Spending">
 </form>

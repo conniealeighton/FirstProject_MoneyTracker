@@ -17,9 +17,34 @@ get '/counting_pennies' do
   erb(:home)
 end
 
+#GET NEW TAG
+get '/counting_pennies/tag/new' do
+  erb(:new_tag)
+end
+
+
+
+# TAG INDEX
+get '/counting_pennies/tag' do
+  @tags = Tag.all()
+  erb(:tag)
+end
+
+
+#CREATE NEW TAG
+post 'counting_pennies/tag' do
+  @tags = Tag.new( params )
+  @tags.save()
+  erb(:tag_confirm)
+end
+
+
+
 #EDIT
 get '/counting_pennies/:id/edit' do
-  @spending = Spending.find( params[:id])
+  @spending = Spending.find(params[:id])
+  @tag = Tag.all()
+  @merchant = Merchant.all()
   erb( :edit )
 end
 
@@ -31,12 +56,18 @@ post '/counting_pennies/:id/delete' do
 end
 
 
-#CREATE NEW
+#GET NEW Expendature
 get '/counting_pennies/new/:id' do
   @user = User.find (params[:id])
   @merchant = Merchant.all()
   @tag = Tag.all()
   erb(:new)
+end
+
+#UPDATE Expendature
+post '/counting_pennies/:id' do
+  Spending.new(params).update
+  redirect to '/counting_pennies'
 end
 
 #SHOW INDIVIDUAL
@@ -45,16 +76,9 @@ get '/counting_pennies/:id' do
   erb( :show )
 end
 
-#RETRIEVE NEW
+#CREATE NEW
 post '/counting_pennies' do
-  @spending = Spending.new( params )
+  @spending = Spending.new(params)
   @spending.save()
   erb( :create )
-end
-
-
-#UPDATE
-post 'counting_pennies/:id' do
-  Spending.new(params).update
-  redirect to '/counting_pennies'
 end

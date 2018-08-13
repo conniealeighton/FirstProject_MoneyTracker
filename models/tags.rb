@@ -4,7 +4,7 @@ require('pry-byebug')
 
 class Tag
 
-  attr_reader :id, :name
+  attr_accessor :id, :name
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -27,6 +27,15 @@ class Tag
     sql = 'SELECT * FROM tags'
     results = SqlRunner.run(sql)
     results.map { |tag| Tag.new(tag)}
+  end
+
+  def self.find( id )
+    sql = "SELECT * FROM tags
+    WHERE id = $1"
+    values = [id]
+    tag = SqlRunner.run( sql, values ).first
+    result = Tag.new( tag )
+    return result
   end
 
 end

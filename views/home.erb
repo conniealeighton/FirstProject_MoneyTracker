@@ -2,6 +2,7 @@
 
 <p><a href="/counting_pennies/new/<%= @user_id %>">New Expendature</a></p>
 
+
 <br>
 <p></p>
 
@@ -10,8 +11,8 @@
 
 
 <p> Purchase Date: <%= spending.purchase_date %></p>
-<p> Tag: <%= spending.tag %> </p>
-<p> Merchant: <%= spending.merchant %> </p>
+<p> Tag: <%= spending.get_tag.name %> </p>
+<p> Merchant: <%= spending.get_merchant.name %> </p>
 <p> Product: <%= spending.product %> </p>
 <p> Price: £<%=spending.price%></p>
 <p><a href="/counting_pennies/<%= spending.id %>">Show Expendature</a></p>
