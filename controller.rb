@@ -15,6 +15,20 @@ get '/counting_pennies' do
   erb(:home)
 end
 
+#EDIT
+get '/counting_pennies/:id/edit' do
+  @spending = Spending.find( params[:id])
+  erb( :edit )
+end
+
+#DELETE
+post '/counting_pennies/:id/delete' do
+  order = Spending.find( params[:id])
+  order.delete()
+  redirect to '/counting_pennies'
+end
+
+
 #CREATE NEW
 get '/counting_pennies/new/:id' do
   @user = User.find (params[:id])
@@ -32,4 +46,11 @@ post '/counting_pennies' do
   @spending = Spending.new( params )
   @spending.save()
   erb( :create )
+end
+
+
+#UPDATE
+post 'counting_pennies/:id' do
+  Spending.new(params).update
+  redirect to '/counting_pennies'
 end

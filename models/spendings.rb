@@ -60,5 +60,23 @@ attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date, :user
     return result
   end
 
+  def update()
+    sql = 'UPDATE spendings SET
+    (
+      user_id, tag, merchant, price, product, purchase_date)
+      =
+      ($1, $2, $3, $4, $5, $6)
+      WHERE id = $5'
+      values = [@user_id, @tag, @merchant, @price, @product, @purchase_date, @id]
+      SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM spendings
+    WHERE id = $1"
+    values = [@id]
+    SqlRunner.run( sql, values )
+  end
+
 
 end
