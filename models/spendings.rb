@@ -4,7 +4,7 @@ require('pry-byebug')
 
 class Spending
 
-attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date
+attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date, :user_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -50,5 +50,15 @@ attr_reader :id, :user, :tag, :merchant, :price, :product, :purchase_date
     array = result.map { |spending| Spending.new(spending).merchant}
     return array.uniq
   end
+
+  def self.find( id )
+    sql = "SELECT * FROM spendings
+    WHERE id = $1"
+    values = [id]
+    spending = SqlRunner.run( sql, values ).first
+    result = Spending.new( spending )
+    return result
+  end
+
 
 end

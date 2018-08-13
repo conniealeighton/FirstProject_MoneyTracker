@@ -10,21 +10,19 @@ also_reload ( './models/*')
 #INDEX ROUTE
 get '/counting_pennies' do
   @spendings = Spending.all()
+  #All user id's the same, get first ID
+  @user_id = Spending.all[1].user_id
   erb(:home)
 end
 
-#NEW EXPENDITURE
-get '/counting_pennies/new' do
-  @user = User.check_id
-  @tags = Spending.list_tags
-  @merchants = Spending.list_merchants
-  erb (:new)
+#CREATE NEW
+get '/counting_pennies/new/:id' do
+  @user = User.find (params[:id])
+  erb(:new)
 end
 
-
-post '/counting_pennies' do
-  @spending = Spending.new(params)
-  @spending.save()
-  @spending = Spending.insert_id
-  erb(:joined)
+#SHOW INDIVIDUAL
+get '/counting_pennies/:id' do
+  @spending = Spending.find( params[:id] )
+  erb( :show )
 end

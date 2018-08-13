@@ -1,13 +1,20 @@
 <h1>Welcome to Count the Pennies</h1>
 
+<p><a href="/counting_pennies/new/<%= @user_id %>">TEST</a></p>
 
 <% @spendings.each do |spending| %>
+
+
 
 <p> Purchase Date: <%= spending.purchase_date %></p>
 <p> Tag: <%= spending.tag %> </p>
 <p> Merchant: <%= spending.merchant %> </p>
 <p> Product: <%= spending.product %> </p>
 <p> Price: £<%=spending.price%></p>
+<p><a href="/counting_pennies/<%= spending.id %>">Show Expendature</a></p>
+<p><a href="/counting_pennies/new/<%= spending.user_id %>">New</a></p>
+ <hr />
 
+  <hr />
 
 <% end %>
