@@ -1,25 +1,59 @@
-<h1>Welcome to Count the Pennies</h1>
-
-<p><a href="/counting_pennies/new/<%= @user_id %>">New Expendature</a></p>
+<br><br><br><br><br><br>
 
 
-<br>
-<p></p>
-
-<% @spendings.each do |spending| %>
-
+<div class="headline">
+  <h1>All your Expendatures</h1>
+</div>
 
 
-<p> Purchase Date: <%= spending.purchase_date %></p>
-<p> Tag: <%= spending.get_tag.name %> </p>
-<p> Merchant: <%= spending.get_merchant.name %> </p>
-<p> Product: <%= spending.product %> </p>
-<p> Price: £<%=spending.price%></p>
-<p><a href="/counting_pennies/<%= spending.id %>">Show Expendature</a></p>
-<p><a href="/counting_pennies/<%= spending.id %>/edit">Edit Expendature</a></p>
+</div>
+<div class="centre">
+  <div class="button1 button"><p><a href="/counting_pennies/new/<%= @user_id %>">New Expendature</a></p></div> </div>
 
- <hr />
 
-  <hr />
+
+
+
+
+
+  <% @spendings.each do |spending| %>
+
+  <br><br>
+
+  <div class="centre">
+
+    <div class="grid">
+
+      <div class="cell"><p> Purchase Date: <%= spending.purchase_date %></p></div>
+
+      <div class="cell"><p> Tag: <%= spending.get_tag.name %> </p></div>
+
+      <div class="cell"><p> Merchant: <%= spending.get_merchant.name %> </p></div>
+
+      <div class="cell"><p> Product: <%= spending.product %> </p></div>
+
+      <div class="cell"><p> Price: £<%=spending.price%></p></div>
+    </div>
+
+  </div>
+
+  <br><br>
+
+
+
+</div>
+
+<div class="centre">
+  <div class="button1 button">
+    <p><a href="/counting_pennies/<%= spending.id %>" type="button">Show Expendature</a></p>
+  </div>
+
+
+
+
+<div class="button1 button"><p><a href="/counting_pennies/<%= spending.id %>/edit">Edit Expendature</a></p> </div> </div>
+
+<br><br><br><br>
+
 
 <% end %>

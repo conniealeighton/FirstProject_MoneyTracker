@@ -1,3 +1,9 @@
+<br><br><br><br><br><br><br>
+
+<headline> <h1> Show Your Expendature </h1> </headline>
+
+<br><br><br>
+
 <p>Tag: <%= @spending.tag_id %></p>
 <p>Merchant: <%= @spending.merchant_id %></p>
 <p>Price: <%= @spending.price %></p>
@@ -5,5 +11,4 @@
 
 <form action="/counting_pennies/<%= @spending.id %>/delete" method="post">
   <input type="submit" name="" value="Delete Order">
-
 </form>

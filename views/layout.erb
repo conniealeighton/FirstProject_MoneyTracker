@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title> Welcome to Counting the pennies </title>
-    <link rel="stylesheet" href="stylesheet.css">
+<head>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <meta charset="utf-8">
+  <title>
+    Welcome to Count the Pennies </title>
   </head>
   <body>
     <ul>
-      <li><a href="/counting_pennies">Homepage</a> </li>
-    
-        <li> <a</li>
+      <li> <a href="/counting_pennies"> Home </a></li>
+      <li> <a href="/counting_pennies/tag"> Your Tags </a> </li>
+      <li> <a href="/counting_pennies/merchant"> Your Merchants </a> </li>
+      <li> <a href="#">Your Spending</a>
+        <ul>
+          <a href="#"> This Month </a>
+        </ul>
+        <ul>
+          <a href="#"> Since You Joined </a> </ul>
+      </li>
+      <li> <a href="#"> Settings </a> </li>
     </ul>
     <%= yield %>
   </body>
-</html>
+  </html>

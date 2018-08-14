@@ -22,22 +22,52 @@ get '/counting_pennies/tag/new' do
   erb(:new_tag)
 end
 
+#GET NEW TAG
+get '/counting_pennies/merchant/new' do
+  erb(:new_merchant)
+end
+
+# Merchant INDEX
+get '/counting_pennies/merchant' do
+  @merchants = Merchant.all()
+  @number = 0
+  erb(:merchant)
+end
+
+#CREATE NEW merchant
+post '/counting_pennies/merchant' do
+  @merchant = Merchant.new( params )
+  @merchant.save()
+  redirect to ("/counting_pennies/confirm_merchant/#{@merchant.id}")
+end
+
+get '/counting_pennies/confirm_merchant/:id' do
+  @merchant = Merchant.find(params['id'])
+  erb(:merchant_confirm)
+end
+
+
 
 
 # TAG INDEX
 get '/counting_pennies/tag' do
   @tags = Tag.all()
+  @number = 0
   erb(:tag)
 end
 
 
 #CREATE NEW TAG
-post 'counting_pennies/tag' do
-  @tags = Tag.new( params )
-  @tags.save()
-  erb(:tag_confirm)
+post '/counting_pennies/tag' do
+  @tag = Tag.new( params )
+  @tag.save()
+  redirect to ("/counting_pennies/confirm/#{@tag.id}")
 end
 
+get '/counting_pennies/confirm/:id' do
+  @tag = Tag.find(params['id'])
+  erb(:tag_confirm)
+end
 
 
 #EDIT
@@ -78,7 +108,9 @@ end
 
 #CREATE NEW
 post '/counting_pennies' do
+  # if params['text_tag'] != ""
   @spending = Spending.new(params)
   @spending.save()
   erb( :create )
+  # binding.pry()
 end

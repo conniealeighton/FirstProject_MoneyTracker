@@ -1,33 +1,37 @@
 <form action="/counting_pennies" method="post">
 
+<br><br><br><br><br><br>
 
-  <label for="tag-field"> Tag Field </label>
+  <label for="tag-field"> Tag: </label>
   <select id='tag-field' name="tag_id">
     <% @tag.each do |tag| %>
     <option value="<%= tag.id %>"> <%= tag.name %> </option>
     <% end %>
   </select>
+  <!-- <input type="text" name="text_tag" value=""> -->
 
-    <label for="merchant-field"> Merchant Field</label>
+    <br><br>
+    <label for="merchant-field"> Merchant: </label>
     <select id='merchant-field' name="merchant_id">
       <% @merchant.each do |merchant| %>
       <option value=" <%= merchant.id %> "> <%= merchant.name %> </option>
       <% end %>
     </select>
 
+    <br><br>
 
-
-  <label for="price-field"> Price Field </label>
+  <label for="price-field"> Price: </label>
 
   <input id='price-field' type='text' name="price" required>
+<br><br>
 
-
-  <label for="product-field"> Product Field </label>
+  <label for="product-field"> Product: </label>
 
   <input id='product-field' type='text' name="product" required>
 
+<br><br>
 
-  <label for="date-field"> Date Field </label>
+  <label for="date-field"> Date: </label>
 
   <input id='date-field' type='date' name="purchase_date" required>
 
