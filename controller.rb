@@ -6,6 +6,7 @@ require('pry-byebug')
 require_relative('./models/spendings')
 require_relative('./models/users')
 require_relative('./models/merchants')
+require_relative('./models/searched')
 require_relative('./models/tags')
 also_reload ( './models/*')
 
@@ -15,6 +16,40 @@ get '/counting_pennies' do
   #All user id's the same, get first ID
   @user_id = Spending.all[1].user_id
   erb(:home)
+end
+
+#Home Page
+get '/counting_pennies/home_page' do
+  erb(:home_page)
+end
+
+
+#SEARCH Function
+get '/counting_pennies/search' do
+  erb(:search)
+end
+
+get '/counting_pennies/today' do
+  @spendings = Spending.all()
+  @user_id = Spending.all[1].user_id
+  erb(:today)
+end
+
+#CREATE SEARCH
+post '/counting_pennies/search_result' do
+  Search.delete_all()
+  @search_result = Search.new( params )
+  @search_result.save()
+  redirect to ("/counting_pennies/search_result")
+end
+
+#SEARCH INDEX
+get '/counting_pennies/search_result' do
+  @search_result = Search.all()
+  @tags = Tag.all()
+  @merchants = Merchant.all()
+  @spendings = Spending.all()
+  erb(:search_result)
 end
 
 #GET NEW TAG
@@ -27,19 +62,20 @@ get '/counting_pennies/merchant/new' do
   erb(:new_merchant)
 end
 
-# Merchant INDEX
+# MERCHANT INDEX
 get '/counting_pennies/merchant' do
   @merchants = Merchant.all()
   @number = 0
   erb(:merchant)
 end
 
-#CREATE NEW merchant
+#CREATE NEW MERCHANT
 post '/counting_pennies/merchant' do
   @merchant = Merchant.new( params )
   @merchant.save()
   redirect to ("/counting_pennies/confirm_merchant/#{@merchant.id}")
 end
+
 
 get '/counting_pennies/confirm_merchant/:id' do
   @merchant = Merchant.find(params['id'])

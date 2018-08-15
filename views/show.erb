@@ -8,7 +8,3 @@
 <p>Merchant: <%= @spending.merchant_id %></p>
 <p>Price: <%= @spending.price %></p>
 <p>Product: <%= @spending.product %></p>
-
-<form action="/counting_pennies/<%= @spending.id %>/delete" method="post">
-  <input type="submit" name="" value="Delete Order">
-</form>

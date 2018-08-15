@@ -38,4 +38,12 @@ class Merchant
     return result
   end
 
+  def self.return_merchants
+    sql = "SELECT name FROM merchants"
+    result = SqlRunner.run(sql)
+    hashes = result.map {|merchants| Merchant.new(merchants)}
+    hashes.map { |merchants| merchants.name}
+  end
+
+
 end

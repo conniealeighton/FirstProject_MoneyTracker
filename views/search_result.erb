@@ -1,0 +1,13 @@
+<br><br><br><br><br><br>
+
+<div class="centre">
+
+  <headline><h1>Search Result(s) </h1></headline></div>
+
+  <p> You searched for "<%= @search_result.first.search %>" </p>
+
+
+
+<%= Tag.return_names.select {|name| name.capitalize.include? '' } %>
+<%= Spending.return_products.select {|product| product.capitalize.include? '' } %>
+<%= Merchant.return_merchants.select {|merchant| merchant.capitalize.include? '' } %>

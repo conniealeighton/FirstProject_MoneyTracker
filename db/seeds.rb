@@ -1,5 +1,6 @@
 require_relative('../models/spendings')
 require_relative('../models/users')
+require_relative('../models/searched')
 require_relative('../models/merchants')
 require_relative('../models/tags')
 require('pry-byebug')
@@ -8,6 +9,10 @@ Merchant.delete_all()
 User.delete_all()
 Spending.delete_all()
 Tag.delete_all()
+Search.delete_all()
+
+search1 = Search.new( 'search' => 'hello')
+search1.save()
 
 tag1 = Tag.new({ 'name' => 'Food'})
 tag1.save()

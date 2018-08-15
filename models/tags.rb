@@ -45,4 +45,10 @@ class Tag
     SqlRunner.run( sql, values )
   end
 
+  def self.return_names
+    sql = "SELECT name FROM tags"
+    result = SqlRunner.run( sql)
+    hashes = result.map {|hi| Tag.new(hi)}
+    hashes.map { |hash| hash.name}
+  end
 end

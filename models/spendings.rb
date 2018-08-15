@@ -86,5 +86,12 @@ attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_dat
       SqlRunner.run(sql, values)
   end
 
+  def self.return_products
+    sql = "SELECT product FROM spendings"
+    result = SqlRunner.run(sql)
+    hashes = result.map {|products| Spending.new(products)}
+    hashes.map { |product| product.product}.uniq
+  end
+
 
 end

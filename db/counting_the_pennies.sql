@@ -1,3 +1,4 @@
+DROP TABLE searches;
 DROP TABLE spendings;
 DROP TABLE merchants;
 DROP TABLE tags;
@@ -30,4 +31,9 @@ CREATE TABLE spendings(
   price INT,
   product VARCHAR(255),
   purchase_date DATE
+);
+
+CREATE TABLE searches(
+id SERIAL PRIMARY KEY,
+search VARCHAR(255)
 );
