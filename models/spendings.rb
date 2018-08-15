@@ -93,5 +93,26 @@ attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_dat
     hashes.map { |product| product.product}.uniq
   end
 
+  def self.search(search_item)
+    sql = "SELECT * FROM spendings WHERE product LIKE $1"
+    search_item = "%" + search_item + "%"
+    values = [search_item]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Spending.new(spending)}
+  end
+
+  def self.spending_from_tag(id)
+    sql = "SELECT * FROM spendings WHERE tag_id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Spending.new(spending)}.first
+  end
+
+  def self.spending_from_merchant(id)
+    sql = "SELECT * FROM spendings WHERE merchant_id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Spending.new(spending)}.first
+  end
 
 end

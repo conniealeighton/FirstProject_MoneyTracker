@@ -45,10 +45,34 @@ class Tag
     SqlRunner.run( sql, values )
   end
 
-  def self.return_names
-    sql = "SELECT name FROM tags"
-    result = SqlRunner.run( sql)
-    hashes = result.map {|hi| Tag.new(hi)}
-    hashes.map { |hash| hash.name}
+  def self.return_name(id)
+    sql = "SELECT * FROM tags WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    result.map { |name| Tag.new(name)}.first.name
   end
+
+  def self.search_tags(search_item)
+    sql = "SELECT * FROM tags WHERE name LIKE $1"
+    search_item = "%" + search_item + "%"
+    values = [search_item]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Tag.new(spending)}
+  end
+
+  def self.search(search_item)
+    sql = "SELECT * FROM spendings WHERE product LIKE $1"
+    search_item = "%" + search_item + "%"
+    values = [search_item]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Spending.new(spending)}
+  end
+
+  def self.spending_from_tag(id)
+    sql = "SELECT * FROM spendings WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Spending.new(spending)}.first
+  end
+
 end

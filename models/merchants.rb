@@ -45,5 +45,20 @@ class Merchant
     hashes.map { |merchants| merchants.name}
   end
 
+  def self.return_name(id)
+    sql = "SELECT * FROM merchants WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    result.map { |merchant| Tag.new(merchant)}.first.name
+  end
+
+  def self.search_merchants(search_item)
+    sql = "SELECT * FROM merchants WHERE name LIKE $1"
+    search_item = "%" + search_item + "%"
+    values = [search_item]
+    result = SqlRunner.run(sql, values)
+    result.map { |spending| Merchant.new(spending)}
+  end
+
 
 end

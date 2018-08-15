@@ -6,7 +6,6 @@ require('pry-byebug')
 require_relative('./models/spendings')
 require_relative('./models/users')
 require_relative('./models/merchants')
-require_relative('./models/searched')
 require_relative('./models/tags')
 also_reload ( './models/*')
 
@@ -15,7 +14,7 @@ get '/counting_pennies' do
   @spendings = Spending.all()
   #All user id's the same, get first ID
   @user_id = Spending.all[1].user_id
-  erb(:home)
+  erb(:all_spendings)
 end
 
 #Home Page
@@ -35,22 +34,26 @@ get '/counting_pennies/today' do
   erb(:today)
 end
 
-#CREATE SEARCH
-post '/counting_pennies/search_result' do
-  Search.delete_all()
-  @search_result = Search.new( params )
-  @search_result.save()
-  redirect to ("/counting_pennies/search_result")
-end
-
 #SEARCH INDEX
-get '/counting_pennies/search_result' do
-  @search_result = Search.all()
+get '/counting_pennies/search_result/:search_item' do
   @tags = Tag.all()
   @merchants = Merchant.all()
   @spendings = Spending.all()
+  @result_spending = Spending.search(params['search_item'])
+  @result_tag = Tag.search_tags(params['search_item'])
+  @result_merchant = Merchant.search_merchants(params['search_item'])
   erb(:search_result)
 end
+
+#CREATE SEARCH
+post '/counting_pennies/search_result' do
+  @search_result = params['search']
+  redirect to ("/counting_pennies/search_result/#{@search_result}")
+end
+
+
+
+
 
 #GET NEW TAG
 get '/counting_pennies/tag/new' do

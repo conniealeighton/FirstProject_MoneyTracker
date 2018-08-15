@@ -4,10 +4,34 @@
 
   <headline><h1>Search Result(s) </h1></headline></div>
 
-  <p> You searched for "<%= @search_result.first.search %>" </p>
 
 
+<% for spending in @result_spending %>
 
-<%= Tag.return_names.select {|name| name.capitalize.include? '' } %>
-<%= Spending.return_products.select {|product| product.capitalize.include? '' } %>
-<%= Merchant.return_merchants.select {|merchant| merchant.capitalize.include? '' } %>
+<p> Date: <%=spending.purchase_date %></p>
+<p> Price: £<%= spending.price %></p>
+<p> Tag: <%= Tag.return_name(spending.tag_id) %></p>
+<p> Merchant: <%= Merchant.return_name(spending.merchant_id) %></p>
+<% end %>
+
+
+<% for tag in @result_tag %>
+
+
+<p> Date: <%= Spending.spending_from_tag(tag.id).purchase_date %></p>
+<p> Price: <%= Spending.spending_from_tag(tag.id).price %></p>
+<p> Tag: <%= tag.name %></p>
+<p> Merchant: <%= Merchant.return_name(Spending.spending_from_tag(tag.id).merchant_id) %></p>
+
+
+<% end %>
+
+
+<% for merchant in @result_merchant  %>
+
+<p> Date: <%= Spending.spending_from_merchant(merchant.id).purchase_date %></p>
+<p> Price: <%= Spending.spending_from_merchant(merchant.id).price %></p>
+<p> Tag: <%= Tag.return_name(Spending.spending_from_merchant(merchant.id).tag_id) %></p>
+<p> Merchant: <%= merchant.name %></p>
+
+<% end %>
