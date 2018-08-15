@@ -8,10 +8,13 @@
 
 <% for spending in @result_spending %>
 
-<p> Date: <%=spending.purchase_date %></p>
+
+<p> Date: <%=spending.purchase_date %></p> 
 <p> Price: £<%= spending.price %></p>
 <p> Tag: <%= Tag.return_name(spending.tag_id) %></p>
 <p> Merchant: <%= Merchant.return_name(spending.merchant_id) %></p>
+
+
 <% end %>
 
 
