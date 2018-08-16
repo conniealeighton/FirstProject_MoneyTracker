@@ -32,12 +32,12 @@ class User
     hash['id']
   end
 
-  def self.find( id )
+  def self.find(id)
     sql = "SELECT * FROM users
     WHERE id = $1"
     values = [id]
     user = SqlRunner.run( sql, values ).first
-    result = User.new( user )
+    result = User.new(user)
     return result
   end
 

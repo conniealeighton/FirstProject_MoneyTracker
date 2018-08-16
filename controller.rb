@@ -13,12 +13,12 @@ also_reload ( './models/*')
 get '/counting_pennies' do
   @spendings = Spending.all()
   #All user id's the same, get first ID
-  @user_id = Spending.all[1].user_id
+  @user_id = Spending.all[1]
   erb(:all_spendings)
 end
 
 #Home Page
-get '/counting_pennies/home_page' do
+get '/' do
   erb(:home_page)
 end
 
@@ -51,16 +51,42 @@ post '/counting_pennies/search_result' do
   redirect to ("/counting_pennies/search_result/#{@search_result}")
 end
 
-
-
-
-
 #GET NEW TAG
 get '/counting_pennies/tag/new' do
   erb(:new_tag)
 end
 
-#GET NEW TAG
+#UPDATE Tag
+post '/counting_pennies/tag/:id' do
+  Tag.new(params).update
+  redirect to '/counting_pennies/tag'
+end
+
+#show tag
+get '/counting_pennies/tag/:id' do
+  @tag = Tag.find(params[:id])
+  @tag_id = Tag.find(:id)
+  erb(:show_tag)
+end
+
+#DELETE
+post '/counting_pennies/tag/:id/delete' do
+  @tag = Tag.find( params[:id])
+  @tag.delete()
+  redirect to '/counting_pennies/tag'
+end
+
+
+
+# Edit tag
+get '/counting_pennies/tag/edit/:id' do
+  @tags = Tag.find(params[:id])
+  erb(:edit_tag )
+end
+
+
+
+#GET NEW Merchant
 get '/counting_pennies/merchant/new' do
   erb(:new_merchant)
 end
@@ -118,16 +144,16 @@ get '/counting_pennies/:id/edit' do
 end
 
 #DELETE
-post '/counting_pennies/:id/delete' do
-  order = Spending.find( params[:id])
-  order.delete()
+get '/counting_pennies/:id/delete' do
+  @order = Spending.find( params[:id])
+  @order.delete()
   redirect to '/counting_pennies'
 end
 
 
 #GET NEW Expendature
 get '/counting_pennies/new/:id' do
-  @user = User.find (params[:id])
+  @user = User.find(params[:id])
   @merchant = Merchant.all()
   @tag = Tag.all()
   erb(:new)

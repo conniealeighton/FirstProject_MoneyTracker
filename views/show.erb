@@ -8,3 +8,8 @@
 <p>Merchant: <%= @spending.merchant_id %></p>
 <p>Price: <%= @spending.price %></p>
 <p>Product: <%= @spending.product %></p>
+
+<div class="centre">
+  <div class="button1 button">
+    <p><a href="/counting_pennies/<%= @spending.user_id %>/delete" type="button">Delete</a></p>
+  </div>

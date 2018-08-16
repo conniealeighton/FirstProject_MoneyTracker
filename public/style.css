@@ -67,9 +67,11 @@ h1 {
 
 }
 
+
 .centre {
  display:flex;
  justify-content: center;
+
 }
 
 .cell {
@@ -153,5 +155,9 @@ h1.headline {
   display: flex;
   justify-content: space-around;
   width: 1000px;
+}
+
+h3 {
+  font-size:20px;
 
 }

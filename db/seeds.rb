@@ -57,6 +57,3 @@ spending3 = Spending.new({
 spending1.save()
 spending2.save()
 spending3.save()
-
-binding.pry
-nil

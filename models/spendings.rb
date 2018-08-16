@@ -4,7 +4,7 @@ require('pry-byebug')
 
 class Spending
 
-attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_date, :user_id
+attr_accessor :id, :user_id, :tag_id, :merchant_id, :price, :product, :purchase_date, :user_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -46,7 +46,7 @@ attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_dat
   end
 
 
-  def delete()
+  def self.delete()
     sql = "DELETE FROM spendings
     WHERE id = $1"
     values = [@id]
@@ -113,6 +113,12 @@ attr_accessor :id, :user, :tag_id, :merchant_id, :price, :product, :purchase_dat
     values = [id]
     result = SqlRunner.run(sql, values)
     result.map { |spending| Spending.new(spending)}.first
+  end
+
+  def self.today_spending(spending)
+    if spending.purchase_date = Date.today.to_s == true
+      return spending.price
+    end
   end
 
 end

@@ -75,4 +75,19 @@ class Tag
     result.map { |spending| Spending.new(spending)}.first
   end
 
+  def self.find( id )
+    sql = "SELECT * FROM tags
+    WHERE id = $1"
+    values = [id]
+    tag = SqlRunner.run( sql, values ).first
+    result = Tag.new( tag )
+    return result
+  end
+
+  def update()
+    sql = 'UPDATE tags SET name = $1 WHERE id = $2'
+    values = [@name, @id]
+    SqlRunner.run(sql, values)
+  end
+
 end

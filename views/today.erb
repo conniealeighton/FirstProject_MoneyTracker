@@ -65,3 +65,10 @@
 
 <% end %>
 <% end %>
+
+<div class="centre">
+
+<h3>TOTAL EXPENDITURE:
+<%= @spendings.map { |spending| Spending.today_spending(spending).to_i}.sum %></h3>
+
+</div>

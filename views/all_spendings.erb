@@ -12,8 +12,6 @@
 <br><br><br>
 
 </div>
-<div class="centre">
-  <div class="button1 button"><p><a href="/counting_pennies/new/<%= @user_id %>">New Expenditure</a></p></div> </div>
 
 
 
@@ -54,11 +52,19 @@
   </div>
 
 
-
-
 <div class="button1 button"><p><a href="/counting_pennies/<%= spending.id %>/edit">Edit Expenditure</a></p> </div> </div>
+<div class="centre">
+  <div class="button1 button"><p><a href="/counting_pennies/new/<%= spending.user_id %>">New Expenditure</a></p></div> </div>
+
 
 <br><br><br><br>
 
 
 <% end %>
+
+<div class="total centre">
+
+
+<h3>TOTAL EXPENDITURE: <%= @spendings.map {|spending| spending.price.to_i}.sum %></h3>
+
+</div>
